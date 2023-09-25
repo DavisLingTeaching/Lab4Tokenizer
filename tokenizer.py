@@ -209,7 +209,7 @@ class Tokenizer:
             >>> text.translate(str.maketrans(table))
             >>> 'CD ABC EF'
         """
-        expression = r'([!"#$%&\'()*+,-./\\:;=?@[\]^_`{|}~])'
+        expression = r'([!"#$%&\'()*+,-.\\:;=?@[\]^_`{|}~])'
         expression_2 = r'\s+'
         new_text = re.sub(expression, r' \1',text)
         new_text = re.sub(expression_2, ' ', new_text)
@@ -276,7 +276,7 @@ class Tokenizer:
         For example, 
             assuming that self.word2idx = {'the': 0, 'cat': 1, '<unk>': 2}
             >>> tokenizer.convert_tokens_to_ids("the")
-            >>> [0]
+            >>> 0
             >>> tokenizer.convert_tokens_to_ids(["the", "cat"])
             >>> [0, 1]
             >>> tokenizer.convert_tokens_to_ids(["the", "cat", "sleeps"])
@@ -467,11 +467,5 @@ class Tokenizer:
 if __name__ == "__main__":
 
     tokenizer = Tokenizer(maxSequenceLength=5)
-    print('  I am Omar, the destroyer\t of worlds.')
-    print(tokenizer.preprocess('  I am Omar, the destroyer\t of worlds.'))
-    ##Try out your tokenizer below
-    tokenizer.load_tokenizer('ToyVocab.txt')
-
-
-
+    print(tokenizer.preprocess('<s> She loves <unk> , cat </s> <pad> <pad> <pad>'))
 

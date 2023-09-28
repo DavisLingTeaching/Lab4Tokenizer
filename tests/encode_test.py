@@ -32,3 +32,12 @@ def testEncode():
     text = 'Is the man who is tall also quite tall though?'
     assert tokenizer.encode(text, truncate=True, 
                             add_special_tokens=True) == [7, 0, 1, 2, 3, 0, 4, 9, 9, 8], "Checking truncate=True (with maxSequenceLength as 10) and add_special_tokens=True failed"
+
+    tokenizer = T.Tokenizer(maxSequenceLength=5)
+    ##Try out your tokenizer below
+    text = ['the cat', 'the cat eats the cat']
+    tokenizer.word2idx = {'the':0, 'cat':1, 'eats':2, '<pad>':3,
+                                '</s>':4, '<s>': 5}
+    assert tokenizer.encode(text, add_special_tokens=True, truncate=True,
+                           padding=True) == [[5,0,1,4,3],[5,0,1,2,4]], "Checking"\
+                        " truncate, add_special_tokens, and padding = True"

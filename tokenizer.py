@@ -209,11 +209,19 @@ class Tokenizer:
             >>> text.translate(str.maketrans(table))
             >>> 'CD ABC EF'
         """
-        #TODO: Your code goes here 
-
-        #Delete the following line when implementing your function
-        raise NotImplementedError
-
+        expression = r'([!"#$%&\'()*+,-.\\:;=?@[\]^_`{|}~])'
+        expression_2 = r'\s+'
+        new_text = re.sub(expression, r' \1',text)
+        new_text = re.sub(expression_2, ' ', new_text)
+        if (self.lower == True):
+            new_text = new_text.lower().strip()
+        else:
+            new_text = new_text.strip()
+        new_text = new_text.replace('\n', ' ')
+        new_text = new_text.replace('\r', ' ')
+        new_text = new_text.replace('\t', ' ')
+        return new_text
+        
     def tokenize(self, text: str) -> List[str]:
         """
         Takes a string a returns a list of tokens. Tokens are defined
@@ -268,7 +276,7 @@ class Tokenizer:
         For example, 
             assuming that self.word2idx = {'the': 0, 'cat': 1, '<unk>': 2}
             >>> tokenizer.convert_tokens_to_ids("the")
-            >>> [0]
+            >>> 0
             >>> tokenizer.convert_tokens_to_ids(["the", "cat"])
             >>> [0, 1]
             >>> tokenizer.convert_tokens_to_ids(["the", "cat", "sleeps"])
@@ -280,9 +288,19 @@ class Tokenizer:
 
         """
         #TODO: Your code goes here 
+        if (type(tokens) == string):
+            if (tokens not in self.word2idx.keys()):
+                return self.word2idx['<unk>']
+            else:
+                return self.word2idx[tokens]
+        else:
+            for element in tokens:
+                if (element not in self.word2idx.keys()):
+                    return self.word2idx['<unk>']
+                else:
+                    return self.word2idx[element]
+        
 
-        #Delete the following line when implementing your function
-        raise NotImplementedError
 
     #TODO
     def encode(self, text: Union[str, List[str]], 
@@ -449,9 +467,5 @@ class Tokenizer:
 if __name__ == "__main__":
 
     tokenizer = Tokenizer(maxSequenceLength=5)
-    ##Try out your tokenizer below
-    tokenizer.load_tokenizer('ToyVocab.txt')
-
-
-
+    print(tokenizer.preprocess('<s> She loves <unk> , cat </s> <pad> <pad> <pad>'))
 

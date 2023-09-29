@@ -13,7 +13,7 @@ def testCreateVocab():
     fname = './tests/train.txt'
 
     try:
-        tokenizer.create_vocab(fname, freqThreshold=100) 
+        tokenizer.create_vocab(fname, freqThreshold=2) 
     except NotImplementedError:
         assert 0, 'You need to implement the create_vocab function'
 
